@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sparragus/code/ICOM5007/lab01-src/command.cxx
+iostream
+-
+
+/home/sparragus/code/ICOM5007/lab01-src/shell.cxx
+
