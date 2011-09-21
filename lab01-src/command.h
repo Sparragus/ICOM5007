@@ -18,9 +18,11 @@ public:
 private:
   bool parse_line(const std::string& line);
   bool is_valid_command_line(const std::string& line) const;
+  int command::execvp(const std::string&,
 
   bool exit_requested_;
   std::vector<std::string> parameters_;
+                    const std::vector<std::string>&) const
 };
 
 #endif // COMMAND_H

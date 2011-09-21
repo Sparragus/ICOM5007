@@ -40,6 +40,7 @@ bool command::parse_line(const std::string& line)
 bool command::readline()
 {
   // TODO: Print prompt for the user.
+std::cout << "koopa$ ";
 
   // Read line from user.
   std::string command_line;
@@ -50,7 +51,7 @@ bool command::readline()
 
 void command::print_usage() const
 {
-  std::cout << "Print something crafty, eh ;-)." << std::endl;
+  std::cout << "USAGE: command [parameters]" << std::endl;
 }
 
 void command::execute()
@@ -61,12 +62,34 @@ void command::execute()
   {
     this->exit_requested_ = true;
   }
+  else if (cmd == "help")
+  {
+    //std::cout << "USAGE: " << std::endl;
+    this->print_usage();
+  }
   else
   {
     std::vector<std::string>::const_iterator iter = this->parameters_.begin();
-    for (; iter != this->parameters_.end(); ++iter)
-    {
-      std::cout << *iter << std::endl;
-    }
+    //for (; iter != this->parameters_.end(); ++iter)
+    //{
+      //std::cout << *iter << std::endl;
+    //}
+
+    this->execvp(this->parameters_[0], this->parameters_);
+
   }
+}
+
+int command::execvp(const std::string& path,
+                    const std::vector<std::string>& argv) const
+{
+  std::vector<const char*> c_argv;
+  for (std::vector<std::string>::const_iterator iter = argv.begin();
+       iter != argv.end();
+       ++iter)
+  {
+    c_argv.push_back(iter->c_str());
+  }
+  c_argv.push_back(0);
+  return ::execvp(path.c_str(),const_cast<char* const*>(&c_argv[0]));
 }
